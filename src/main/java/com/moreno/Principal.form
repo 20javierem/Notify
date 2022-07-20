@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.moreno.Principal">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="200" left="200" bottom="200" right="200"/>
+    <constraints>
+      <xy x="20" y="20" width="718" height="504"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="8ad" class="javax.swing.JButton" binding="btnBotonLeft">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Botom left"/>
+        </properties>
+      </component>
+      <component id="b3e58" class="javax.swing.JButton" binding="btnTopLeft">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Top left"/>
+        </properties>
+      </component>
+      <component id="3de84" class="javax.swing.JButton" binding="btnBotonCenter">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Botom center"/>
+        </properties>
+      </component>
+      <component id="b9052" class="javax.swing.JButton" binding="btnTopCenter">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Top center"/>
+        </properties>
+      </component>
+      <component id="8aeb7" class="javax.swing.JButton" binding="btnTopRigth">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Top rigth"/>
+        </properties>
+      </component>
+      <component id="290d9" class="javax.swing.JButton" binding="btnBotonRigth">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Botom rigth"/>
+        </properties>
+      </component>
+      <component id="8a31" class="javax.swing.JButton" binding="btnCenter">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Center"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
