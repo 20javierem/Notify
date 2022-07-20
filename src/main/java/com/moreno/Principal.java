@@ -1,5 +1,8 @@
 package com.moreno;
 
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,43 +25,43 @@ public class Principal extends JFrame {
         btnCenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.CENTER, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnTopLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.TOP_LEFT, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.TOP_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnTopCenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.TOP_CENTER, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.TOP_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnTopRigth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.TOP_RIGHT, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.TOP_RIGHT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnBotonLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.BOTTOM_LEFT, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.BOTTOM_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnBotonCenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.BOTTOM_CENTER, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.BOTTOM_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnBotonRigth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT, "Titulo", "Mensaje");
+                Notify.sendNotify(frame, Notify.Type.INFO, Notify.Location.BOTTOM_RIGHT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
     }
@@ -94,28 +97,28 @@ public class Principal extends JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 3, new Insets(200, 200, 200, 200), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(3, 3, new Insets(200, 200, 200, 200), -1, -1));
         btnBotonLeft = new JButton();
         btnBotonLeft.setText("Botom left");
-        contentPane.add(btnBotonLeft, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnBotonLeft, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btnTopLeft = new JButton();
         btnTopLeft.setText("Top left");
-        contentPane.add(btnTopLeft, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnTopLeft, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btnBotonCenter = new JButton();
         btnBotonCenter.setText("Botom center");
-        contentPane.add(btnBotonCenter, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnBotonCenter, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btnTopCenter = new JButton();
         btnTopCenter.setText("Top center");
-        contentPane.add(btnTopCenter, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnTopCenter, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btnTopRigth = new JButton();
         btnTopRigth.setText("Top rigth");
-        contentPane.add(btnTopRigth, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnTopRigth, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btnBotonRigth = new JButton();
         btnBotonRigth.setText("Botom rigth");
-        contentPane.add(btnBotonRigth, new com.intellij.uiDesigner.core.GridConstraints(2, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnBotonRigth, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btnCenter = new JButton();
         btnCenter.setText("Center");
-        contentPane.add(btnCenter, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnCenter, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
