@@ -89,7 +89,6 @@ public class Notify extends JDialog {
             @Override
             public void begin() {
                 if (!showing) {
-                    setOpacity(0f);
                     int margin = 10;
                     if (location == Notify.Location.TOP_CENTER) {
                         x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
@@ -163,7 +162,6 @@ public class Notify extends JDialog {
                         setLocation(x, top - y);
                     }
                 }
-                setOpacity(alpha);
             }
         };
         animator = new Animator(500, target);
