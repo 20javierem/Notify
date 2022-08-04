@@ -144,9 +144,7 @@ public class Notify extends JDialog {
 
             @Override
             public void timingEvent(float fraction) {
-                float alpha;
                 if (showing) {
-                    alpha = 1f - fraction;
                     int y = (int) ((1f - fraction) * animate);
                     if (top_to_bot) {
                         setLocation(x, top + y);
@@ -154,7 +152,6 @@ public class Notify extends JDialog {
                         setLocation(x, top - y);
                     }
                 } else {
-                    alpha = fraction;
                     int y = (int) (fraction * animate);
                     if (top_to_bot) {
                         setLocation(x, top + y);
