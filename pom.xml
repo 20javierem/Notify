@@ -111,7 +111,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.mistica.App</mainClass>
+              <mainClass>com.moreno.App</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
