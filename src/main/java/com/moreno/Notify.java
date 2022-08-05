@@ -89,6 +89,9 @@ public class Notify extends JDialog {
             @Override
             public void begin() {
                 if (!showing) {
+                    try {
+                        setOpacity(0f);
+                    }catch (Exception ignored){}
                     int margin = 10;
                     if (location == Notify.Location.TOP_CENTER) {
                         x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
@@ -144,7 +147,9 @@ public class Notify extends JDialog {
 
             @Override
             public void timingEvent(float fraction) {
+                float alpha;
                 if (showing) {
+                    alpha = 1f - fraction;
                     int y = (int) ((1f - fraction) * animate);
                     if (top_to_bot) {
                         setLocation(x, top + y);
@@ -152,6 +157,7 @@ public class Notify extends JDialog {
                         setLocation(x, top - y);
                     }
                 } else {
+                    alpha = fraction;
                     int y = (int) (fraction * animate);
                     if (top_to_bot) {
                         setLocation(x, top + y);
@@ -159,6 +165,9 @@ public class Notify extends JDialog {
                         setLocation(x, top - y);
                     }
                 }
+                try{
+                    setOpacity(alpha);
+                }catch (Exception ignored){}
             }
         };
         animator = new Animator(500, target);
@@ -246,7 +255,7 @@ public class Notify extends JDialog {
         lblMessage.setEnabled(true);
         lblMessage.setLineWrap(true);
         lblMessage.setOpaque(false);
-        panel1.add(lblMessage, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(150, 50), null, 0, false));
+        panel1.add(lblMessage, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel2.setOpaque(false);
@@ -254,7 +263,7 @@ public class Notify extends JDialog {
         lblIcon = new JLabel();
         lblIcon.setIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x30/sucess.png")));
         lblIcon.setText("");
-        panel2.add(lblIcon, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel2.add(lblIcon, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel3.setOpaque(false);
@@ -266,7 +275,7 @@ public class Notify extends JDialog {
         btnClose.setPressedIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x24/cerrar3.png")));
         btnClose.setRolloverIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x24/cerrar2.png")));
         btnClose.setText("");
-        panel3.add(btnClose, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(32, 32), new Dimension(32, 32), new Dimension(32, 32), 0, false));
+        panel3.add(btnClose, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(32, 32), new Dimension(32, 32), new Dimension(32, 32), 0, false));
     }
 
     /**
@@ -330,4 +339,3 @@ public class Notify extends JDialog {
     }
 
 }
-
