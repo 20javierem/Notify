@@ -3,12 +3,12 @@
   <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
     <margin top="0" left="5" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="400" height="65"/>
+      <xy x="20" y="20" width="400" height="72"/>
     </constraints>
     <properties>
-      <maximumSize width="400" height="70"/>
-      <minimumSize width="400" height="70"/>
-      <preferredSize width="400" height="70"/>
+      <maximumSize width="400" height="72"/>
+      <minimumSize width="400" height="72"/>
+      <preferredSize width="400" height="72"/>
     </properties>
     <border type="none"/>
     <children>
@@ -44,20 +44,17 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
-              <scrollpane id="2c15f">
+              <scrollpane id="2c15f" binding="scroll">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
-                <border type="none"/>
+                <border type="empty"/>
                 <children>
-                  <component id="e246b" class="javax.swing.JTextArea" binding="lblMessage" custom-create="true">
+                  <component id="9aa79" class="javax.swing.JTextArea" binding="lblMessage">
                     <constraints/>
                     <properties>
-                      <editable value="false"/>
-                      <enabled value="true"/>
                       <lineWrap value="true"/>
-                      <opaque value="false"/>
                       <wrapStyleWord value="true"/>
                     </properties>
                   </component>
