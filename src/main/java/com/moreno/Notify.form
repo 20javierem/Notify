@@ -6,9 +6,9 @@
       <xy x="20" y="20" width="400" height="70"/>
     </constraints>
     <properties>
-      <maximumSize width="400" height="65"/>
-      <minimumSize width="400" height="65"/>
-      <preferredSize width="400" height="65"/>
+      <maximumSize width="400" height="70"/>
+      <minimumSize width="400" height="70"/>
+      <preferredSize width="400" height="70"/>
     </properties>
     <border type="none"/>
     <children>
@@ -44,19 +44,25 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
-              <component id="e246b" class="javax.swing.JTextArea" binding="lblMessage" custom-create="true">
+              <scrollpane id="2c15f">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties>
-                  <editable value="false"/>
-                  <enabled value="true"/>
-                  <lineWrap value="true"/>
-                  <opaque value="false"/>
-                </properties>
-              </component>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="e246b" class="javax.swing.JTextArea" binding="lblMessage" custom-create="true">
+                    <constraints/>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <lineWrap value="true"/>
+                      <opaque value="false"/>
+                      <wrapStyleWord value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
           <grid id="a973" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
