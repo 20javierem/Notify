@@ -24,8 +24,8 @@ public class Notify extends JDialog {
     private boolean showing;
     private Thread thread;
     private int animate = 10;
-    private Notify.Type type;
-    private Notify.Location location;
+    private int type;
+    private int location;
     private JButton btnClose;
     private JLabel lblTittle;
     private JTextArea lblMessage;
@@ -38,7 +38,7 @@ public class Notify extends JDialog {
     private String message;
     private static Notify notify;
 
-    public static void sendNotify(JFrame jframe, Notify.Type type, Notify.Location location, String tittle, String message) {
+    public static void sendNotify(JFrame jframe, int type, int location, String tittle, String message) {
         if (notify != null) {
             notify.dispose();
         }
@@ -46,7 +46,7 @@ public class Notify extends JDialog {
         notify.showNotification();
     }
 
-    public Notify(JFrame fram, Notify.Type type, Notify.Location location, String tittle, String message) {
+    public Notify(JFrame fram, int type, int location, String tittle, String message) {
         super(fram);
         this.fram = fram;
         this.type = type;
@@ -71,9 +71,9 @@ public class Notify extends JDialog {
         setFocusableWindowState(false);
         pack();
         lblMessage.setBackground(pane.getBackground());
-        if (type == Notify.Type.SUCCESS) {
+        if (type == Type.SUCCESS) {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x30/sucess.png")));
-        } else if (type == Notify.Type.INFO) {
+        } else if (type == Type.INFO) {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x30/info.png")));
         } else {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x30/warning.png")));
@@ -97,27 +97,27 @@ public class Notify extends JDialog {
                     } catch (Exception ignored) {
                     }
                     int margin = 10;
-                    if (location == Notify.Location.TOP_CENTER) {
+                    if (location == Location.TOP_CENTER) {
                         x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
                         y = fram.getY() + margin;
                         top_to_bot = true;
-                    } else if (location == Notify.Location.TOP_RIGHT) {
+                    } else if (location == Location.TOP_RIGHT) {
                         x = fram.getX() + fram.getWidth() - getWidth() - 2 * margin;
                         y = fram.getY() + margin;
                         top_to_bot = true;
-                    } else if (location == Notify.Location.TOP_LEFT) {
+                    } else if (location == Location.TOP_LEFT) {
                         x = fram.getX() + 2 * margin;
                         y = fram.getY() + margin;
                         top_to_bot = true;
-                    } else if (location == Notify.Location.BOTTOM_CENTER) {
+                    } else if (location == Location.BOTTOM_CENTER) {
                         x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
                         y = fram.getY() + fram.getHeight() - getHeight() - margin;
                         top_to_bot = false;
-                    } else if (location == Notify.Location.BOTTOM_RIGHT) {
+                    } else if (location == Location.BOTTOM_RIGHT) {
                         x = fram.getX() + fram.getWidth() - getWidth() - 2 * margin;
                         y = fram.getY() + fram.getHeight() - getHeight() - margin;
                         top_to_bot = false;
-                    } else if (location == Notify.Location.BOTTOM_LEFT) {
+                    } else if (location == Location.BOTTOM_LEFT) {
                         x = fram.getX() + 2 * margin;
                         y = fram.getY() + fram.getHeight() - getHeight() - margin;
                         top_to_bot = false;
@@ -334,12 +334,20 @@ public class Notify extends JDialog {
      */
 
 
-    public static enum  Type {
-        SUCCESS, INFO, WARNING
+    public class Type {
+        public static final int SUCCESS = 0;
+        public static final int INFO = 1;
+        public static final int WARNING = 2;
     }
 
-    public enum Location {
-        TOP_CENTER, TOP_RIGHT, TOP_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT, BOTTOM_LEFT, CENTER
+    public class Location {
+        public static final int TOP_CENTER = 0;
+        public static final int TOP_RIGHT = 1;
+        public static final int TOP_LEFT = 2;
+        public static final int BOTTOM_CENTER = 3;
+        public static final int BOTTOM_RIGHT = 4;
+        public static final int BOTTOM_LEFT = 5;
+        public static final int CENTER = 6;
     }
 
 }
