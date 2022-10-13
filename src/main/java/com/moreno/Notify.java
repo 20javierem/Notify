@@ -334,7 +334,7 @@ public class Notify extends JDialog {
      */
 
 
-    public enum Type {
+    public static enum  Type {
         SUCCESS, INFO, WARNING
     }
 
