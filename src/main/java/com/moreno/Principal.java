@@ -2,7 +2,6 @@ package com.moreno;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.moreno.notify.Notify;
 
 import javax.swing.*;
 import java.awt.*;

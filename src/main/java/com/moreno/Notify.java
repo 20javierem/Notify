@@ -1,9 +1,8 @@
-package com.moreno.notify;
+package com.moreno;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.moreno.App;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -260,6 +259,7 @@ public class Notify extends JDialog {
         scroll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         lblMessage = new JTextArea();
         lblMessage.setLineWrap(true);
+        lblMessage.setTabSize(5);
         lblMessage.setWrapStyleWord(true);
         scroll.setViewportView(lblMessage);
         final JPanel panel2 = new JPanel();
