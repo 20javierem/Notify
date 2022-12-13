@@ -237,14 +237,14 @@ public class Notify extends JDialog {
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
         contentPane.setLayout(new GridLayoutManager(1, 1, new Insets(0, 5, 0, 0), 0, 0));
-        contentPane.setMaximumSize(new Dimension(400, 72));
-        contentPane.setMinimumSize(new Dimension(400, 72));
-        contentPane.setPreferredSize(new Dimension(400, 72));
+        contentPane.setMaximumSize(new Dimension(400, 85));
+        contentPane.setMinimumSize(new Dimension(400, 85));
+        contentPane.setPreferredSize(new Dimension(400, 85));
         pane = new JPanel();
         pane.setLayout(new GridLayoutManager(1, 3, new Insets(0, 10, 0, 0), 10, -1));
         contentPane.add(pane, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(2, 2, new Insets(5, 0, 10, 0), 15, 0));
+        panel1.setLayout(new GridLayoutManager(2, 2, new Insets(5, 0, 8, 0), 15, 0));
         panel1.setOpaque(false);
         pane.add(panel1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         lblTittle = new JLabel();
@@ -258,8 +258,9 @@ public class Notify extends JDialog {
         panel1.add(scroll, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scroll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         lblMessage = new JTextArea();
+        lblMessage.setEditable(false);
+        lblMessage.setEnabled(true);
         lblMessage.setLineWrap(true);
-        lblMessage.setTabSize(5);
         lblMessage.setWrapStyleWord(true);
         scroll.setViewportView(lblMessage);
         final JPanel panel2 = new JPanel();
