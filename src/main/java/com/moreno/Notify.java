@@ -259,7 +259,6 @@ public class Notify extends JDialog {
         scroll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         lblMessage = new JTextArea();
         lblMessage.setEditable(false);
-        lblMessage.setEnabled(true);
         lblMessage.setLineWrap(true);
         lblMessage.setWrapStyleWord(true);
         scroll.setViewportView(lblMessage);
