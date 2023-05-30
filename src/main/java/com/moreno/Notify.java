@@ -12,8 +12,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.event.*;
 import java.util.Locale;
 
 public class Notify extends JDialog {
@@ -22,33 +21,34 @@ public class Notify extends JDialog {
     private final JFrame jFrame;
     private boolean showing;
     private Thread thread;
-    private int animate = 10;
-    private Type type;
-    private Location location;
+    private final int animate = 10;
+    private final TypeNotify type;
+    private final LocationNotify locationNotify;
     private JLabel lblTitle;
     private JTextArea lblMessage;
     private JLabel lblIcon;
     private JPanel pane;
     private JScrollPane scroll;
-    private JProgressBar progressBar1;
+    private JProgressBar progressBar;
     private JPanel pane1;
-    private String title;
-    private String message;
+    private final String title;
+    private final String message;
     private static Notify notify;
+    private TimingTarget timingTarget;
 
-    public static void sendNotify(JFrame jframe, Type type, Location location, String title, String message) {
+    public static void sendNotify(JFrame jframe, TypeNotify type, LocationNotify locationNotify, String title, String message) {
         if (notify != null) {
             notify.dispose();
         }
-        notify = new Notify(jframe, type, location, title, message);
+        notify = new Notify(jframe, type, locationNotify, title, message);
         notify.showNotification();
     }
 
-    public Notify(JFrame jFrame, Type type, Location location, String title, String message) {
+    public Notify(JFrame jFrame, TypeNotify type, LocationNotify locationNotify, String title, String message) {
         super(jFrame);
         this.jFrame = jFrame;
         this.type = type;
-        this.location = location;
+        this.locationNotify = locationNotify;
         this.message = message;
         this.title = title;
         $$$setupUI$$$();
@@ -62,22 +62,26 @@ public class Notify extends JDialog {
         setUndecorated(true);
         setFocusableWindowState(false);
         pack();
-        lblMessage.setBackground(pane.getBackground());
-        if (type == Type.SUCCESS) {
+        loadData();
+    }
+
+    private void loadData() {
+        if (type == TypeNotify.SUCCESS) {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/sucess.png")));
-        } else if (type == Type.INFO) {
+        } else if (type == TypeNotify.INFO) {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/info.png")));
-        } else if (type == Type.ERROR) {
+        } else if (type == TypeNotify.ERROR) {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/error.png")));
         } else {
             lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/warning.png")));
         }
+        lblMessage.setBackground(pane.getBackground());
         lblTitle.setText(title);
         lblMessage.setText(message);
     }
 
     private void initAnimator() {
-        TimingTarget target = new TimingTargetAdapter() {
+        timingTarget = new TimingTargetAdapter() {
             private int x = 0;
             private int top;
             private boolean top_to_bot;
@@ -91,27 +95,27 @@ public class Notify extends JDialog {
                     }
                     int margin = 10;
                     int y;
-                    if (location == Location.TOP_CENTER) {
+                    if (locationNotify == LocationNotify.TOP_CENTER) {
                         x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
                         y = jFrame.getY() + margin;
                         top_to_bot = true;
-                    } else if (location == Location.TOP_RIGHT) {
+                    } else if (locationNotify == LocationNotify.TOP_RIGHT) {
                         x = jFrame.getX() + jFrame.getWidth() - getWidth() - 2 * margin;
                         y = jFrame.getY() + margin;
                         top_to_bot = true;
-                    } else if (location == Location.TOP_LEFT) {
+                    } else if (locationNotify == LocationNotify.TOP_LEFT) {
                         x = jFrame.getX() + 2 * margin;
                         y = jFrame.getY() + margin;
                         top_to_bot = true;
-                    } else if (location == Location.BOTTOM_CENTER) {
+                    } else if (locationNotify == LocationNotify.BOTTOM_CENTER) {
                         x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
                         y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
                         top_to_bot = false;
-                    } else if (location == Location.BOTTOM_RIGHT) {
+                    } else if (locationNotify == LocationNotify.BOTTOM_RIGHT) {
                         x = jFrame.getX() + jFrame.getWidth() - getWidth() - 2 * margin;
                         y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
                         top_to_bot = false;
-                    } else if (location == Location.BOTTOM_LEFT) {
+                    } else if (locationNotify == LocationNotify.BOTTOM_LEFT) {
                         x = jFrame.getX() + 2 * margin;
                         y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
                         top_to_bot = false;
@@ -130,12 +134,9 @@ public class Notify extends JDialog {
             public void end() {
                 showing = !showing;
                 if (showing) {
-                    thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            sleep();
-                            closeNotification();
-                        }
+                    thread = new Thread(() -> {
+                        sleep();
+                        closeNotification();
                     });
                     thread.start();
                 } else {
@@ -169,7 +170,7 @@ public class Notify extends JDialog {
                 }
             }
         };
-        animator = new Animator(500, target);
+        animator = new Animator(500, timingTarget);
         animator.setResolution(5);
     }
 
@@ -195,17 +196,20 @@ public class Notify extends JDialog {
 
     private void sleep() {
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
+            do {
+                progressBar.setValue(progressBar.getValue() - 1);
+                thread.sleep(75);
+            } while (progressBar.getValue() != 0);
+        } catch (InterruptedException ignored) {
         }
     }
 
     private void paint() {
-        if (type == Type.SUCCESS) {
+        if (type == TypeNotify.SUCCESS) {
             pane.setBackground(new Color(3, 176, 15));
-        } else if (type == Type.INFO) {
+        } else if (type == TypeNotify.INFO) {
             pane.setBackground(new Color(44, 135, 204));
-        } else if (type == Type.ERROR) {
+        } else if (type == TypeNotify.ERROR) {
             pane.setBackground(new Color(219, 63, 50));
         } else {
             pane.setBackground(new Color(227, 181, 13));
@@ -239,7 +243,7 @@ public class Notify extends JDialog {
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(1, 2, new Insets(4, 4, 4, 4), 5, 0));
         panel1.setOpaque(false);
-        pane.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        pane.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(2, 2, new Insets(5, 0, 8, 0), 15, 0));
         panel2.setOpaque(false);
@@ -268,9 +272,9 @@ public class Notify extends JDialog {
         lblIcon.setIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x32/sucess.png")));
         lblIcon.setText("");
         panel3.add(lblIcon, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        progressBar1 = new JProgressBar();
-        progressBar1.setValue(50);
-        pane.add(progressBar1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        progressBar = new JProgressBar();
+        progressBar.setValue(100);
+        pane.add(progressBar, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -321,23 +325,4 @@ public class Notify extends JDialog {
      *
      * @noinspection ALL
      */
-
-
-    public enum Type {
-        SUCCESS,
-        INFO,
-        WARNING,
-        ERROR
-    }
-
-    public enum Location {
-        TOP_CENTER,
-        TOP_RIGHT,
-        TOP_LEFT,
-        BOTTOM_CENTER,
-        BOTTOM_RIGHT,
-        BOTTOM_LEFT,
-        CENTER
-    }
-
 }

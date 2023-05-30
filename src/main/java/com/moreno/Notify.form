@@ -15,7 +15,7 @@
       <grid id="e7ca7" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="0">
         <margin top="4" left="4" bottom="4" right="4"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <opaque value="false"/>
@@ -90,12 +90,12 @@
           </grid>
         </children>
       </grid>
-      <component id="1369c" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
+      <component id="1369c" class="javax.swing.JProgressBar" binding="progressBar">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <value value="50"/>
+          <value value="100"/>
         </properties>
       </component>
     </children>
