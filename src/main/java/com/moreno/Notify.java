@@ -12,79 +12,73 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.Locale;
 
 public class Notify extends JDialog {
 
     private Animator animator;
-    private final JFrame fram;
+    private final JFrame jFrame;
     private boolean showing;
     private Thread thread;
     private int animate = 10;
-    private int type;
-    private int location;
-    private JButton btnClose;
-    private JLabel lblTittle;
+    private Type type;
+    private Location location;
+    private JLabel lblTitle;
     private JTextArea lblMessage;
-    private JPanel contentPane;
     private JLabel lblIcon;
     private JPanel pane;
     private JScrollPane scroll;
+    private JProgressBar progressBar1;
     private JPanel pane1;
-    private String tittle;
+    private String title;
     private String message;
     private static Notify notify;
 
-    public static void sendNotify(JFrame jframe, int type, int location, String tittle, String message) {
+    public static void sendNotify(JFrame jframe, Type type, Location location, String title, String message) {
         if (notify != null) {
             notify.dispose();
         }
-        notify = new Notify(jframe, type, location, tittle, message);
+        notify = new Notify(jframe, type, location, title, message);
         notify.showNotification();
     }
 
-    public Notify(JFrame fram, int type, int location, String tittle, String message) {
-        super(fram);
-        this.fram = fram;
+    public Notify(JFrame jFrame, Type type, Location location, String title, String message) {
+        super(jFrame);
+        this.jFrame = jFrame;
         this.type = type;
         this.location = location;
         this.message = message;
-        this.tittle = tittle;
+        this.title = title;
         $$$setupUI$$$();
         initComponents();
         initAnimator();
-        btnClose.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closeNotification();
-            }
-        });
     }
 
     private void initComponents() {
-        setContentPane(contentPane);
+        setContentPane(pane);
         paint();
         setUndecorated(true);
         setFocusableWindowState(false);
         pack();
         lblMessage.setBackground(pane.getBackground());
         if (type == Type.SUCCESS) {
-            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x30/sucess.png")));
+            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/sucess.png")));
         } else if (type == Type.INFO) {
-            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x30/info.png")));
+            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/info.png")));
+        } else if (type == Type.ERROR) {
+            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/error.png")));
         } else {
-            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x30/warning.png")));
+            lblIcon.setIcon(new ImageIcon(App.class.getResource("Icons/x32/warning.png")));
         }
-        lblTittle.setText(tittle);
+        lblTitle.setText(title);
         lblMessage.setText(message);
     }
 
     private void initAnimator() {
         TimingTarget target = new TimingTargetAdapter() {
             private int x = 0;
-            private int y = 0;
             private int top;
             private boolean top_to_bot;
 
@@ -96,33 +90,34 @@ public class Notify extends JDialog {
                     } catch (Exception ignored) {
                     }
                     int margin = 10;
+                    int y;
                     if (location == Location.TOP_CENTER) {
-                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
-                        y = fram.getY() + margin;
+                        x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
+                        y = jFrame.getY() + margin;
                         top_to_bot = true;
                     } else if (location == Location.TOP_RIGHT) {
-                        x = fram.getX() + fram.getWidth() - getWidth() - 2 * margin;
-                        y = fram.getY() + margin;
+                        x = jFrame.getX() + jFrame.getWidth() - getWidth() - 2 * margin;
+                        y = jFrame.getY() + margin;
                         top_to_bot = true;
                     } else if (location == Location.TOP_LEFT) {
-                        x = fram.getX() + 2 * margin;
-                        y = fram.getY() + margin;
+                        x = jFrame.getX() + 2 * margin;
+                        y = jFrame.getY() + margin;
                         top_to_bot = true;
                     } else if (location == Location.BOTTOM_CENTER) {
-                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
-                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
+                        x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
+                        y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
                         top_to_bot = false;
                     } else if (location == Location.BOTTOM_RIGHT) {
-                        x = fram.getX() + fram.getWidth() - getWidth() - 2 * margin;
-                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
+                        x = jFrame.getX() + jFrame.getWidth() - getWidth() - 2 * margin;
+                        y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
                         top_to_bot = false;
                     } else if (location == Location.BOTTOM_LEFT) {
-                        x = fram.getX() + 2 * margin;
-                        y = fram.getY() + fram.getHeight() - getHeight() - margin;
+                        x = jFrame.getX() + 2 * margin;
+                        y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
                         top_to_bot = false;
                     } else {
-                        x = fram.getX() + ((fram.getWidth() - getWidth()) / 2);
-                        y = fram.getY() + ((fram.getHeight() - getHeight()) / 2);
+                        x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
+                        y = jFrame.getY() + ((jFrame.getHeight() - getHeight()) / 2);
                         top_to_bot = true;
                     }
                     top = y;
@@ -206,13 +201,14 @@ public class Notify extends JDialog {
     }
 
     private void paint() {
-        pane.setBackground(pane.getBackground().brighter());
         if (type == Type.SUCCESS) {
-            contentPane.setBackground(new Color(18, 163, 24));
+            pane.setBackground(new Color(3, 176, 15));
         } else if (type == Type.INFO) {
-            contentPane.setBackground(new Color(28, 139, 206));
+            pane.setBackground(new Color(44, 135, 204));
+        } else if (type == Type.ERROR) {
+            pane.setBackground(new Color(219, 63, 50));
         } else {
-            contentPane.setBackground(new Color(241, 196, 15));
+            pane.setBackground(new Color(227, 181, 13));
         }
     }
 
@@ -235,53 +231,46 @@ public class Notify extends JDialog {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(1, 1, new Insets(0, 5, 0, 0), 0, 0));
-        contentPane.setMaximumSize(new Dimension(400, 85));
-        contentPane.setMinimumSize(new Dimension(400, 85));
-        contentPane.setPreferredSize(new Dimension(400, 85));
         pane = new JPanel();
-        pane.setLayout(new GridLayoutManager(1, 3, new Insets(0, 10, 0, 0), 10, -1));
-        contentPane.add(pane, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        pane.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), 0, 0));
+        pane.setMaximumSize(new Dimension(400, 90));
+        pane.setMinimumSize(new Dimension(400, 90));
+        pane.setPreferredSize(new Dimension(400, 90));
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(2, 2, new Insets(5, 0, 8, 0), 15, 0));
+        panel1.setLayout(new GridLayoutManager(1, 2, new Insets(4, 4, 4, 4), 5, 0));
         panel1.setOpaque(false);
-        pane.add(panel1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        lblTittle = new JLabel();
-        Font lblTittleFont = this.$$$getFont$$$(null, Font.BOLD, 14, lblTittle.getFont());
-        if (lblTittleFont != null) lblTittle.setFont(lblTittleFont);
-        lblTittle.setText("Título");
-        panel1.add(lblTittle, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer1 = new Spacer();
-        panel1.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        pane.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayoutManager(2, 2, new Insets(5, 0, 8, 0), 15, 0));
+        panel2.setOpaque(false);
+        panel1.add(panel2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        lblTitle = new JLabel();
+        Font lblTitleFont = this.$$$getFont$$$(null, Font.BOLD, 14, lblTitle.getFont());
+        if (lblTitleFont != null) lblTitle.setFont(lblTitleFont);
+        lblTitle.setText("Título");
+        panel2.add(lblTitle, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         scroll = new JScrollPane();
-        panel1.add(scroll, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        scroll.setVerticalScrollBarPolicy(21);
+        panel2.add(scroll, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scroll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         lblMessage = new JTextArea();
         lblMessage.setEditable(false);
         lblMessage.setLineWrap(true);
         lblMessage.setWrapStyleWord(true);
         scroll.setViewportView(lblMessage);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel2.setOpaque(false);
-        pane.add(panel2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        lblIcon = new JLabel();
-        lblIcon.setIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x30/sucess.png")));
-        lblIcon.setText("");
-        panel2.add(lblIcon, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        panel2.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel3.setOpaque(false);
-        pane.add(panel3, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        btnClose = new JButton();
-        btnClose.setBorderPainted(false);
-        btnClose.setContentAreaFilled(false);
-        btnClose.setIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x24/cerrar.png")));
-        btnClose.setPressedIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x24/cerrar3.png")));
-        btnClose.setRolloverIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x24/cerrar2.png")));
-        btnClose.setText("");
-        panel3.add(btnClose, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(32, 32), new Dimension(32, 32), new Dimension(32, 32), 0, false));
+        panel1.add(panel3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        lblIcon = new JLabel();
+        lblIcon.setIcon(new ImageIcon(getClass().getResource("/com/moreno/Icons/x32/sucess.png")));
+        lblIcon.setText("");
+        panel3.add(lblIcon, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        progressBar1 = new JProgressBar();
+        progressBar1.setValue(50);
+        pane.add(progressBar1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -310,7 +299,7 @@ public class Notify extends JDialog {
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return contentPane;
+        return pane;
     }
 
     private void createUIComponents() {
@@ -334,20 +323,21 @@ public class Notify extends JDialog {
      */
 
 
-    public class Type {
-        public static final int SUCCESS = 0;
-        public static final int INFO = 1;
-        public static final int WARNING = 2;
+    public enum Type {
+        SUCCESS,
+        INFO,
+        WARNING,
+        ERROR
     }
 
-    public class Location {
-        public static final int TOP_CENTER = 0;
-        public static final int TOP_RIGHT = 1;
-        public static final int TOP_LEFT = 2;
-        public static final int BOTTOM_CENTER = 3;
-        public static final int BOTTOM_RIGHT = 4;
-        public static final int BOTTOM_LEFT = 5;
-        public static final int CENTER = 6;
+    public enum Location {
+        TOP_CENTER,
+        TOP_RIGHT,
+        TOP_LEFT,
+        BOTTOM_CENTER,
+        BOTTOM_RIGHT,
+        BOTTOM_LEFT,
+        CENTER
     }
 
 }
