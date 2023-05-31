@@ -23,13 +23,13 @@ public class Principal extends JFrame {
         btnTopLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.INFO, LocationNotify.TOP_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(frame, TypeNotify.WARNING, LocationNotify.TOP_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnTopCenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.INFO, LocationNotify.TOP_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(frame, TypeNotify.ERROR, LocationNotify.TOP_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnTopRigth.addActionListener(new ActionListener() {
@@ -41,7 +41,7 @@ public class Principal extends JFrame {
         btnBotonLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.INFO, LocationNotify.BOTTOM_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(frame, TypeNotify.SUCCESS, LocationNotify.BOTTOM_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
             }
         });
         btnBotonCenter.addActionListener(new ActionListener() {
