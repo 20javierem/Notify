@@ -12,6 +12,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.util.Locale;
 
 public class Notify extends JDialog {
@@ -57,9 +58,9 @@ public class Notify extends JDialog {
 
     private void initComponents() {
         setContentPane(pane);
-        paint();
         setUndecorated(true);
         setFocusableWindowState(false);
+        paint();
         pack();
         loadData();
     }
@@ -123,6 +124,7 @@ public class Notify extends JDialog {
                     top = y;
                     right = x;
                     setLocation(x, y);
+                    setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 8, 8));
                     setVisible(true);
                 }
             }
@@ -189,6 +191,7 @@ public class Notify extends JDialog {
                             break;
                     }
                 }
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 8, 8));
                 try {
                     setOpacity(alpha);
                 } catch (Exception ignored) {
@@ -306,7 +309,7 @@ public class Notify extends JDialog {
         progressBar.setBorderPainted(false);
         progressBar.setForeground(new Color(-1));
         progressBar.setValue(100);
-        pane.add(progressBar, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pane.add(progressBar, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 10), null, null, 0, false));
     }
 
     /**
