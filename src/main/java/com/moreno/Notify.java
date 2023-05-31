@@ -12,7 +12,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Locale;
 
 public class Notify extends JDialog {
@@ -53,7 +52,7 @@ public class Notify extends JDialog {
         this.title = title;
         $$$setupUI$$$();
         initComponents();
-        initAnimator();
+        initAnimator2();
     }
 
     private void initComponents() {
@@ -80,11 +79,13 @@ public class Notify extends JDialog {
         lblMessage.setText(message);
     }
 
-    private void initAnimator() {
+    private void initAnimator2() {
         timingTarget = new TimingTargetAdapter() {
-            private int x = 0;
-            private int top;
-            private boolean top_to_bot;
+            int x = 0;
+            int y = 0;
+            int right;
+            int top;
+            final int margin = 10;
 
             @Override
             public void begin() {
@@ -93,38 +94,34 @@ public class Notify extends JDialog {
                         setOpacity(0f);
                     } catch (Exception ignored) {
                     }
-                    int margin = 10;
-                    int y;
-                    if (locationNotify == LocationNotify.TOP_CENTER) {
-                        x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
-                        y = jFrame.getY() + margin;
-                        top_to_bot = true;
-                    } else if (locationNotify == LocationNotify.TOP_RIGHT) {
-                        x = jFrame.getX() + jFrame.getWidth() - getWidth() - 2 * margin;
-                        y = jFrame.getY() + margin;
-                        top_to_bot = true;
-                    } else if (locationNotify == LocationNotify.TOP_LEFT) {
-                        x = jFrame.getX() + 2 * margin;
-                        y = jFrame.getY() + margin;
-                        top_to_bot = true;
-                    } else if (locationNotify == LocationNotify.BOTTOM_CENTER) {
-                        x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
-                        y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
-                        top_to_bot = false;
-                    } else if (locationNotify == LocationNotify.BOTTOM_RIGHT) {
-                        x = jFrame.getX() + jFrame.getWidth() - getWidth() - 2 * margin;
-                        y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
-                        top_to_bot = false;
-                    } else if (locationNotify == LocationNotify.BOTTOM_LEFT) {
-                        x = jFrame.getX() + 2 * margin;
-                        y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
-                        top_to_bot = false;
-                    } else {
-                        x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
-                        y = jFrame.getY() + ((jFrame.getHeight() - getHeight()) / 2);
-                        top_to_bot = true;
+                    switch (locationNotify) {
+                        case TOP_CENTER:
+                            x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
+                            y = jFrame.getY() + margin / 2;
+                            break;
+                        case TOP_RIGHT:
+                            x = jFrame.getX() + jFrame.getWidth() - getWidth() - margin;
+                            y = jFrame.getY() + (margin * 3) / 2;
+                            break;
+                        case TOP_LEFT:
+                            x = jFrame.getX() + margin;
+                            y = jFrame.getY() + (margin * 3) / 2;
+                            break;
+                        case BOTTOM_CENTER:
+                            x = jFrame.getX() + ((jFrame.getWidth() - getWidth()) / 2);
+                            y = jFrame.getY() + jFrame.getHeight() - getHeight() - margin;
+                            break;
+                        case BOTTOM_RIGHT:
+                            x = jFrame.getX() + jFrame.getWidth() - getWidth() - margin;
+                            y = jFrame.getY() + jFrame.getHeight() - getHeight() - 2 * margin;
+                            break;
+                        case BOTTOM_LEFT:
+                            x = jFrame.getX() + margin;
+                            y = jFrame.getY() + jFrame.getHeight() - getHeight() - 2 * margin;
+                            break;
                     }
                     top = y;
+                    right = x;
                     setLocation(x, y);
                     setVisible(true);
                 }
@@ -149,19 +146,47 @@ public class Notify extends JDialog {
                 float alpha;
                 if (showing) {
                     alpha = 1f - fraction;
-                    int y = (int) ((1f - fraction) * animate);
-                    if (top_to_bot) {
-                        setLocation(x, top + y);
-                    } else {
-                        setLocation(x, top - y);
+                    switch (locationNotify) {
+                        case TOP_RIGHT:
+                        case BOTTOM_RIGHT:
+                            x = (int) ((1f - fraction) * animate);
+                            setLocation(right - x, y);
+                            break;
+                        case TOP_LEFT:
+                        case BOTTOM_LEFT:
+                            x = (int) ((1f - fraction) * animate);
+                            setLocation(right + x, y);
+                            break;
+                        case BOTTOM_CENTER:
+                            y = (int) ((1f - fraction) * animate);
+                            setLocation(x, top - y);
+                            break;
+                        case TOP_CENTER:
+                            y = (int) ((1f - fraction) * animate);
+                            setLocation(x, top + y);
+                            break;
                     }
                 } else {
                     alpha = fraction;
-                    int y = (int) (fraction * animate);
-                    if (top_to_bot) {
-                        setLocation(x, top + y);
-                    } else {
-                        setLocation(x, top - y);
+                    switch (locationNotify) {
+                        case TOP_RIGHT:
+                        case BOTTOM_RIGHT:
+                            x = (int) (fraction * animate);
+                            setLocation(right - x, y);
+                            break;
+                        case TOP_LEFT:
+                        case BOTTOM_LEFT:
+                            x = (int) (fraction * animate);
+                            setLocation(right + x, y);
+                            break;
+                        case BOTTOM_CENTER:
+                            y = (int) (fraction * animate);
+                            setLocation(x, top - y);
+                            break;
+                        case TOP_CENTER:
+                            y = (int) (fraction * animate);
+                            setLocation(x, top + y);
+                            break;
                     }
                 }
                 try {
@@ -173,6 +198,7 @@ public class Notify extends JDialog {
         animator = new Animator(500, timingTarget);
         animator.setResolution(5);
     }
+
 
     public void showNotification() {
         animator.start();
@@ -198,7 +224,7 @@ public class Notify extends JDialog {
         try {
             do {
                 progressBar.setValue(progressBar.getValue() - 1);
-                thread.sleep(75);
+                thread.sleep(35);
             } while (progressBar.getValue() != 0);
         } catch (InterruptedException ignored) {
         }
@@ -273,6 +299,9 @@ public class Notify extends JDialog {
         lblIcon.setText("");
         panel3.add(lblIcon, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         progressBar = new JProgressBar();
+        progressBar.setBorderPainted(false);
+        progressBar.setForeground(new Color(-1));
+        progressBar.setOpaque(false);
         progressBar.setValue(100);
         pane.add(progressBar, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }

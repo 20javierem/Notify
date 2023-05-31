@@ -6,6 +6,5 @@ public enum LocationNotify {
         TOP_LEFT,
         BOTTOM_CENTER,
         BOTTOM_RIGHT,
-        BOTTOM_LEFT,
-        CENTER
+        BOTTOM_LEFT
     }
