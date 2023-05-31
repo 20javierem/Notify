@@ -233,12 +233,16 @@ public class Notify extends JDialog {
     private void paint() {
         if (type == TypeNotify.SUCCESS) {
             pane.setBackground(new Color(3, 176, 15));
+            progressBar.setBackground(new Color(3, 176, 15));
         } else if (type == TypeNotify.INFO) {
             pane.setBackground(new Color(44, 135, 204));
+            progressBar.setBackground(new Color(44, 135, 204));
         } else if (type == TypeNotify.ERROR) {
             pane.setBackground(new Color(219, 63, 50));
+            progressBar.setBackground(new Color(219, 63, 50));
         } else {
             pane.setBackground(new Color(227, 181, 13));
+            progressBar.setBackground(new Color(227, 181, 13));
         }
     }
 
@@ -301,9 +305,8 @@ public class Notify extends JDialog {
         progressBar = new JProgressBar();
         progressBar.setBorderPainted(false);
         progressBar.setForeground(new Color(-1));
-        progressBar.setOpaque(false);
         progressBar.setValue(100);
-        pane.add(progressBar, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pane.add(progressBar, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
