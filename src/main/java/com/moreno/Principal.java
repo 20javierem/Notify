@@ -16,44 +16,44 @@ public class Principal extends JFrame {
     private JButton btnTopRigth;
     private JButton btnBotonCenter;
     private JButton btnBotonRigth;
-    private JFrame frame = this;
 
     public Principal() {
         initComponents();
+        Notify.jFrame = this;
         btnTopLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.WARNING, LocationNotify.TOP_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(new Notification(NotifyType.WARNING, NotifyLocation.TOP_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo"));
             }
         });
         btnTopCenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.ERROR, LocationNotify.TOP_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(new Notification(NotifyType.ERROR, NotifyLocation.TOP_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo"));
             }
         });
         btnTopRigth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.INFO, LocationNotify.TOP_RIGHT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(new Notification(NotifyType.INFO, NotifyLocation.TOP_RIGHT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo"));
             }
         });
         btnBotonLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.SUCCESS, LocationNotify.BOTTOM_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(new Notification(NotifyType.SUCCESS, NotifyLocation.BOTTOM_LEFT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo"));
             }
         });
         btnBotonCenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.INFO, LocationNotify.BOTTOM_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(new Notification(NotifyType.INFO, NotifyLocation.BOTTOM_CENTER, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo"));
             }
         });
         btnBotonRigth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notify.sendNotify(frame, TypeNotify.INFO, LocationNotify.BOTTOM_RIGHT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo");
+                Notify.sendNotify(new Notification(NotifyType.INFO, NotifyLocation.BOTTOM_RIGHT, "Titulo", "Mensaje largo Mensaje largo Mensaje largo Mensaje largo Mensaje largo"));
             }
         });
     }

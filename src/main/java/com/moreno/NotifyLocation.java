@@ -1,6 +1,6 @@
 package com.moreno;
 
-public enum LocationNotify {
+public enum NotifyLocation {
         TOP_CENTER,
         TOP_RIGHT,
         TOP_LEFT,
