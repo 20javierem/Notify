@@ -1,16 +1,24 @@
 package com.moreno;
 
+import java.util.Date;
+
 public class Notification {
     private NotifyType type;
     private NotifyLocation notifyLocation;
     private String title;
     private String message;
+    private Date date;
 
     public Notification(NotifyType type, NotifyLocation notifyLocation, String title, String message) {
         this.type = type;
         this.notifyLocation = notifyLocation;
         this.title = title;
         this.message = message;
+        this.date=new Date();
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public NotifyType getType() {
