@@ -70,22 +70,22 @@ public class Notify extends JDialog {
     public void loadData() {
         switch (this.notification.getType()) {
             case SUCCESS -> {
-                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(App.class.getResource("Icons/x32/sucess.png"))));
+                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("Icons/x32/sucess.png"))));
                 this.pane.setBackground(new Color(3, 176, 15));
                 this.progressBar.setBackground(new Color(3, 176, 15));
             }
             case INFO -> {
-                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(App.class.getResource("Icons/x32/info.png"))));
+                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("Icons/x32/info.png"))));
                 this.pane.setBackground(new Color(44, 135, 204));
                 this.progressBar.setBackground(new Color(44, 135, 204));
             }
             case ERROR -> {
-                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(App.class.getResource("Icons/x32/error.png"))));
+                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("Icons/x32/error.png"))));
                 this.pane.setBackground(new Color(219, 63, 50));
                 this.progressBar.setBackground(new Color(219, 63, 50));
             }
             case WARNING -> {
-                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(App.class.getResource("Icons/x32/warning.png"))));
+                this.lblIcon.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("Icons/x32/warning.png"))));
                 this.pane.setBackground(new Color(227, 181, 13));
                 this.progressBar.setBackground(new Color(227, 181, 13));
             }
